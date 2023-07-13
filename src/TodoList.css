@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 150px;
   }
   
   .todo-input-feild {
@@ -117,4 +118,4 @@
   .todo-li .todo-delete-btn:hover {
     background-color: #c0392b;
   }
-  
+ 
