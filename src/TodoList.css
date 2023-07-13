@@ -52,6 +52,7 @@
   .todo-li {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     margin-bottom: 8px;
   }
   
@@ -63,16 +64,54 @@
     background-color: #f5f5f5;
   }
   
+  .todo-li .input-edit {
+    flex: 1;
+    padding: 8px;
+    font-size: 14px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+  
+  .todo-li .input-edit::placeholder {
+    color: #aaa;
+  }
+  
+  .todo-li .todo-edit-btn,
+  .todo-li .todo-save-btn,
   .todo-li .todo-delete-btn {
-    margin-left: auto;
     padding: 8px 12px;
     font-size: 14px;
-    background-color: #e74c3c;
-    color: #fff;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+  }
+  
+  .todo-li .todo-edit-btn {
+    background-color: #f39c12;
+    color: #fff;
+    margin-left: 4px;
+  }
+  
+  .todo-li .todo-edit-btn:hover {
+    background-color: #d68910;
+  }
+  
+  .todo-li .todo-save-btn {
+    background-color: #2ecc71;
+    color: #fff;
+    margin-left: 4px;
+  }
+  
+  .todo-li .todo-save-btn:hover {
+    background-color: #29b765;
+  }
+  
+  .todo-li .todo-delete-btn {
+    background-color: #e74c3c;
+    color: #fff;
   }
   
   .todo-li .todo-delete-btn:hover {
