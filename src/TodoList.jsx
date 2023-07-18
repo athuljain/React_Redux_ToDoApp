@@ -26,8 +26,7 @@ const TodoList = () => {
     setEditingText("");
     setEditingTodoId(null);
   };
-  console.log("kvm", setEditingText);
-  console.log(setEditingTodoId);
+  
 
   return (
     <div className="todo-inputcontainer">
@@ -54,6 +53,7 @@ const TodoList = () => {
                     value={editingText}
                     onChange={(e) => setEditingText(e.target.value)}
                   />
+                  <div></div>
                   <button
                     className="todo-save-btn"
                     onClick={() => {
