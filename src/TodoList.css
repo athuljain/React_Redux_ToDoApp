@@ -17,7 +17,7 @@
     padding: 10px;
     font-size: 16px;
     border: none;
-    border-bottom: 2px solid #ccc;
+    border-bottom: 2px solid #b3b3b3;
     outline: none;
     transition: border-color 0.3s ease;
   }
@@ -83,12 +83,13 @@
   .todo-li .todo-edit-btn,
   .todo-li .todo-save-btn,
   .todo-li .todo-delete-btn {
-    padding: 8px 12px;
+    padding: 4px 6px;
     font-size: 14px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+  
   }
   
   .todo-li .todo-edit-btn {
