@@ -1,4 +1,4 @@
-.todo-inputcontainer {
+/* .todo-inputcontainer {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -120,4 +120,263 @@
   .todo-li .todo-delete-btn:hover {
     background-color: #c0392b;
   }
- 
+  */
+/* --- Global Resets & Fonts --- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+}
+
+/* --- Animated Background Context --- */
+.todo-wrapper {
+  min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 5vh;
+  position: relative;
+  overflow: hidden;
+  
+  /* Animated Mesh Gradient */
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradientMove 15s ease infinite;
+}
+
+/* The Noise Texture Overlay */
+.todo-wrapper::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  opacity: 0.15;
+  pointer-events: none;
+  z-index: 1;
+  /* SVG Noise for organic texture */
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Floating Blobs for Depth */
+.bg-blob {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background: rgba(255, 255, 255, 0.2);
+  filter: blur(80px);
+  border-radius: 50%;
+  z-index: 0;
+  animation: float 25s infinite alternate;
+}
+
+.bg-blob.secondary {
+  right: -5%;
+  bottom: 10%;
+  background: rgba(35, 166, 213, 0.3);
+  animation-duration: 30s;
+  animation-delay: -5s;
+}
+
+/* --- The Main Container (Glassmorphism) --- */
+.todo-container {
+  position: relative;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  padding: 2.5rem;
+  border-radius: 30px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  width: 90%;
+  max-width: 480px;
+  margin-bottom: 50px;
+}
+
+.todo-title {
+  color: #1a1a1a;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  text-align: left;
+  letter-spacing: -0.5px;
+}
+
+/* --- Input Area --- */
+.todo-input-field {
+  display: flex;
+  background: rgba(255, 255, 255, 0.5);
+  padding: 8px;
+  border-radius: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  gap: 8px;
+  margin-bottom: 2rem;
+  transition: all 0.3s ease;
+}
+
+.todo-input-field:focus-within {
+  background: white;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+}
+
+.todo-input {
+  flex: 1;
+  padding: 12px 16px;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 1rem;
+  color: #333;
+}
+
+.add-btn {
+  background: #1a1a1a;
+  color: white;
+  border: none;
+  padding: 0 24px;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.add-btn:hover {
+  background: #444;
+  transform: scale(1.02);
+}
+
+.add-btn:active {
+  transform: scale(0.98);
+}
+
+/* --- List Styles --- */
+.todo-ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.todo-li {
+  background: rgba(255, 255, 255, 0.8);
+  padding: 16px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.todo-li:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  background: white;
+}
+
+.todo-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.todo-text {
+  font-weight: 500;
+  color: #2d3436;
+  max-width: 60%;
+  word-break: break-word;
+}
+
+/* --- Action Buttons --- */
+.todo-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.todo-edit-btn, .todo-delete-btn, .todo-save-btn {
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: none;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.todo-edit-btn {
+  background: #f0f0f0;
+  color: #555;
+}
+
+.todo-edit-btn:hover {
+  background: #e0e0e0;
+  color: #000;
+}
+
+.todo-delete-btn {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.todo-delete-btn:hover {
+  background: #fecaca;
+}
+
+.todo-save-btn {
+  background: #dcfce7;
+  color: #166534;
+}
+
+/* --- Edit Mode Styles --- */
+.edit-mode-container {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+}
+
+.input-edit {
+  flex: 1;
+  border: 2px solid #23a6d5;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  outline: none;
+}
+
+/* --- Animations --- */
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes float {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(30px, 50px) rotate(90deg); }
+  100% { transform: translate(-20px, 20px) rotate(180deg); }
+}
+
+/* --- Custom Scrollbar for the list if it gets long --- */
+.todo-list {
+  max-height: 450px;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+.todo-list::-webkit-scrollbar {
+  width: 5px;
+}
+
+.todo-list::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+}
+
+.todo-list::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
